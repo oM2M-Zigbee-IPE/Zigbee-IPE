@@ -34,13 +34,10 @@ public class Activator implements BundleActivator {
 
     /** SCL service tracker */
     private ServiceTracker<Object, Object> cseServiceTracker;
-
     @Override
     public void start(BundleContext bundleContext) throws Exception {
 
         bundleContext.registerService(InterworkingService.class.getName(), new Router(), null);
-
-
         cseServiceTracker = new ServiceTracker<Object, Object>(bundleContext, CseService.class.getName(), null) {
             public void removedService(ServiceReference<Object> reference, Object service) {
 
@@ -67,7 +64,6 @@ public class Activator implements BundleActivator {
 
     @Override
     public void stop(BundleContext bundleContext) throws Exception {
-
         try {
         	LifeCycleManager.stop();
         } catch (Exception e) {

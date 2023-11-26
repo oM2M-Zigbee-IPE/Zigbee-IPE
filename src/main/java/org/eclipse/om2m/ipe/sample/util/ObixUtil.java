@@ -84,6 +84,4 @@ public class ObixUtil {
 		return ObixEncoder.toString(obj);
 	}
 
-
-	
 }

@@ -22,7 +22,19 @@
   <artifactId>org.eclipse.om2m.ipe.sample</artifactId>
   <packaging>eclipse-plugin</packaging>
   <name>org.eclipse.om2m :: ipe sample</name>
+
   <description>org.eclipse.om2m :: ipe sample</description>
+    <dependencies>
+        <!-- 기존 의존성들... -->
+        <!-- Jackson 라이브러리 추가 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-osgi</artifactId>
+            <version>2.16.0</version>
+        </dependency>
+    </dependencies>
+
+
     <build>
         <plugins>
             <plugin>

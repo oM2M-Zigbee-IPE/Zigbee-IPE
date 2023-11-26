@@ -54,6 +54,6 @@ public enum Operations {
 				return op;
 			}
 		}
-		throw new BadRequestException("Unknow Operation");
+		throw new BadRequestException("Unknown Operation");
 	}
 }
