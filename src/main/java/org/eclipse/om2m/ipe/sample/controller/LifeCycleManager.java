@@ -20,6 +20,7 @@
 package org.eclipse.om2m.ipe.sample.controller;
 
 import java.math.BigInteger;
+import java.util.Map;
 
 import org.eclipse.om2m.commons.constants.MimeMediaType;
 import org.eclipse.om2m.commons.constants.ResponseStatusCode;
@@ -29,18 +30,21 @@ import org.eclipse.om2m.commons.resource.ContentInstance;
 import org.eclipse.om2m.commons.resource.ResponsePrimitive;
 import org.eclipse.om2m.ipe.sample.RequestSender;
 import org.eclipse.om2m.ipe.sample.constants.SampleConstants;
+import org.eclipse.om2m.ipe.sample.model.LampModel;
+import org.eclipse.om2m.ipe.sample.model.SpringLamp;
 import org.eclipse.om2m.ipe.sample.util.ObixUtil;
 
 public class LifeCycleManager {
 
-
 	/**
-	 * Handle the start of the plugin with the resource representation
+	 *  1. AE 등록 --> AE를 생성할 때
 	 */
 	public static void start(){
-		/** AE를 만들고 CSE에 등록한다. 해당 AE에 DATA와 DESCRIPTOR를 등록한다. */
+		String lampId = "LAMP_"+1;
+		SpringLamp lamp = new SpringLamp(lampId,false);
+		LampModel.setModel(lamp);
 
-
+		createLampResources(lampId,false,SampleConstants.POA);
 	}
 
 	public static void stop(){
@@ -55,27 +59,31 @@ public class LifeCycleManager {
 	 * @param poa - lamp Point of Access
 	 */
 	private static void createLampResources(String appId, boolean initValue, String poa) {
-		// Create the Application resource
+
 		Container container = new Container();
+		container.getLabels().add("lamp");
+		container.setMaxNrOfInstances(BigInteger.valueOf(0));
 
 		AE ae = new AE();
+		ae.setRequestReachability(true);
+		ae.getPointOfAccess().add(poa);
+		ae.setAppID(appId);
+		ae.setName(appId);
 
-
+		//CSE에 AE 등록되어 있는지 확인
 		ResponsePrimitive response = RequestSender.createAE(ae);
-		// Create Application sub-resources only if application not yet created
+
+		// CSE 최초 등록이면 아래 실행
 		if(response.getResponseStatusCode().equals(ResponseStatusCode.CREATED)) {
 			container = new Container();
-			container.setMaxNrOfInstances(BigInteger.valueOf(10));
-			// Create DESCRIPTOR container sub-resource
+			container.setMaxNrOfInstances(BigInteger.valueOf(5));
+
 			container.setName(SampleConstants.DESC);
 
-			// Create STATE container sub-resource
 			container.setName(SampleConstants.DATA);
-
 
 			String content;
 
-			// Create DESCRIPTION contentInstance on the DESCRIPTOR container resource
 			content = ObixUtil.getDescriptorRep(SampleConstants.CSE_ID, appId, SampleConstants.DATA);
 
 			ContentInstance contentInstance = new ContentInstance();
@@ -85,7 +93,7 @@ public class LifeCycleManager {
 					SampleConstants.CSE_PREFIX + "/" + appId + "/" + SampleConstants.DESC, contentInstance);
 
 			// Create initial contentInstance on the STATE container resource
-			content = ObixUtil.getStateRep(appId, initValue);
+			content = ObixUtil.getStateRep(appId, initValue); // 처음 시작은 불이 꺼져있는 상태
 			contentInstance.setContent(content);
 			RequestSender.createContentInstance(
 					SampleConstants.CSE_PREFIX + "/" + appId + "/" + SampleConstants.DATA, contentInstance);

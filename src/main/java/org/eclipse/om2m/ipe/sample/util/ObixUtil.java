@@ -31,6 +31,7 @@ import org.eclipse.om2m.commons.obix.io.ObixEncoder;
 import org.eclipse.om2m.ipe.sample.constants.Operations;
 import org.eclipse.om2m.ipe.sample.constants.SampleConstants;
 import org.eclipse.om2m.ipe.sample.model.Device;
+import org.eclipse.om2m.ipe.sample.model.SpringLamp;
 
 public class ObixUtil {
 	
@@ -45,8 +46,8 @@ public class ObixUtil {
 		String prefix = cseId+"/"+ Constants.CSE_NAME + "/" + appId;
 		// oBIX
 		Obj obj = new Obj();
-		obj.add(new Str("type", Device.TYPE));
-		obj.add(new Str("location", Device.LOCATION));
+		obj.add(new Str("type", SpringLamp.TYPE));
+		obj.add(new Str("location", SpringLamp.LOCATION));
 		obj.add(new Str("appId",appId));
 		// OP GetState from SCL DataBase
 		Op opState = new Op();
@@ -56,14 +57,32 @@ public class ObixUtil {
 		opState.setIn(new Contract("obix:Nil"));
 		opState.setOut(new Contract("obix:Nil"));
 		obj.add(opState);
+
 		// OP GetState from SCL IPU
 		Op opStateDirect = new Op();
 		opStateDirect.setName("getState(Direct)");
-		opStateDirect.setHref(new Uri(prefix + "?op="+ Operations.GET_STATE_DIRECT+"&deviceid=" + appId));
+		opStateDirect.setHref(new Uri(prefix + "?op="+ Operations.GET_STATE_DIRECT+"&lampid=" + appId));
 		opStateDirect.setIs(new Contract("execute"));
 		opStateDirect.setIn(new Contract("obix:Nil"));
 		opStateDirect.setOut(new Contract("obix:Nil"));
 		obj.add(opStateDirect);
+
+		// OP SwitchON
+		Op opON = new Op();
+		opON.setName("switchON");
+		opON.setHref(new Uri(prefix + "?op="+ Operations.SET_ON +"&lampid=" + appId));
+		opON.setIs(new Contract("execute"));
+		opON.setIn(new Contract("obix:Nil"));
+		opON.setOut(new Contract("obix:Nil"));
+		obj.add(opON);
+		// OP SwitchOFF
+		Op opOFF = new Op();
+		opOFF.setName("switchOFF");
+		opOFF.setHref(new Uri(prefix  + "?op=" + Operations.SET_OFF + "&lampid=" + appId));
+		opOFF.setIs(new Contract("execute"));
+		opOFF.setIn(new Contract("obix:Nil"));
+		opOFF.setOut(new Contract("obix:Nil"));
+		obj.add(opOFF);
 
 		return ObixEncoder.toString(obj);
 	}

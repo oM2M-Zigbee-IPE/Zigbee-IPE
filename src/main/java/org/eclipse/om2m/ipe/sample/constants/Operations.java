@@ -27,6 +27,8 @@ import org.eclipse.om2m.commons.exceptions.BadRequestException;
 public enum Operations {
 	
 	GET_STATE("getState"),
+	SET_ON("setOn"),
+	SET_OFF("setOff"),
 	GET_STATE_DIRECT("getStateDirect");
 
 	private final String value;

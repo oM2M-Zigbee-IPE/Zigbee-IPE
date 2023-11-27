@@ -10,6 +10,4 @@ Import-Package: org.apache.commons.logging,
  org.eclipse.om2m.core.service,
  org.eclipse.om2m.interworking.service,
  org.osgi.framework,
- org.osgi.util.tracker,
- com.fasterxml.jackson.databind,
- com.fasterxml.jackson.annotation
+ org.osgi.util.tracker

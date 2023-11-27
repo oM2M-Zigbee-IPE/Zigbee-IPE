@@ -1,5 +1,7 @@
 package org.eclipse.om2m.ipe.sample;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.eclipse.om2m.commons.constants.Constants;
 import org.eclipse.om2m.commons.resource.RequestPrimitive;
 import org.eclipse.om2m.commons.resource.ResponsePrimitive;
@@ -8,12 +10,14 @@ import org.eclipse.om2m.ipe.sample.constants.SampleConstants;
 
 public class Router implements InterworkingService {
 
+
     @Override
     public ResponsePrimitive doExecute(RequestPrimitive request) {
         ResponsePrimitive response = new ResponsePrimitive(request);
 
         /** oM2M의 요청을 parsing 해서 IPE Controller에게 전달한다. */
 
+        ObjectMapper objectMapper;
 
         return response;
     }

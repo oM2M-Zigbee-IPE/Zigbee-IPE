@@ -11,5 +11,5 @@
   <component name="Osmorc">
     <option name="bundlesOutputPath" value="/private/var/folders/ks/7sssxvws409d731ksskpg1lw0000gn/T" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" project-jdk-name="15" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>
