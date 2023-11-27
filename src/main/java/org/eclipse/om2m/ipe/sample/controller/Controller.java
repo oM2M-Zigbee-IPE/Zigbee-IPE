@@ -23,11 +23,26 @@ public class Controller {
         cin.setContentInfo(MimeMediaType.OBIX + ":" + MimeMediaType.ENCOD_PLAIN);
         RequestSender.createContentInstance(targetID, cin);
     }
-    public static void getDeviceInfo(){
-
+    public static String getFormatedDeviceState(String deviceId){
+        return ObixUtil.getStateRep(deviceId, getDeviceState(deviceId));
     }
-
-
+    public static boolean getDeviceState(String deviceId){
+        return Model.getDeviceValue(deviceId);
+    }
+    /**
+     * 온도, 습도 받아오기
+     * @param deviceId
+     */
+    public static void getDeviceInfo(String deviceId){
+        /**
+         * 온습도계가 1개임을 가정
+         */
+        try{
+            String json = Model.deviceToJson(deviceId);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
     public static void setCse(CseService cse){
         CSE = cse;
     }
