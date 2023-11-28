@@ -25,12 +25,14 @@ public class SampleConstants {
 	
 	private SampleConstants(){}
 	
-	public static final String POA = "http://localhost:8081";
+	public static final String POA = "sample";
 	public static final String DATA = "DATA";
 	public static final String DESC = "DESCRIPTOR";
 	public static final String AE_NAME = "AE_ZIGBEE_IPE";
+
+	public static final String LAMP_0 = "LAMP_0";
 	public static final String QUERY_STRING_OP = "op";
-	public static final String QUERY_STRING_SENSOR_ID = "deviceid";
+	public static final String QUERY_STRING_SENSOR_ID = "lampid";
 
 	public static String CSE_ID = "/" + Constants.CSE_ID;
 	public static String CSE_PREFIX = CSE_ID + "/" + Constants.CSE_NAME;

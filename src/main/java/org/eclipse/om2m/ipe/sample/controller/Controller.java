@@ -5,6 +5,7 @@ import org.eclipse.om2m.commons.resource.ContentInstance;
 import org.eclipse.om2m.core.service.CseService;
 import org.eclipse.om2m.ipe.sample.RequestSender;
 import org.eclipse.om2m.ipe.sample.constants.SampleConstants;
+import org.eclipse.om2m.ipe.sample.model.Lamp.LampModel;
 import org.eclipse.om2m.ipe.sample.model.Model;
 import org.eclipse.om2m.ipe.sample.util.ObixUtil;
 
@@ -61,5 +62,19 @@ public class Controller {
     }
 
 
+
+    /** 아래가 Lamp 관련 코드 */
+
+    /** Spring Lamp 불 끄기 */
+    public static void setLampState(String lampId, boolean value){
+        // Set the value in the "real world" model
+        LampModel.setLampState(lampId, value);
+        // Send the information to the CSE
+        String targetID = SampleConstants.CSE_PREFIX + "/" + lampId + "/" + SampleConstants.DATA;
+        ContentInstance cin = new ContentInstance();
+        cin.setContent(ObixUtil.getStateRep(lampId, value));
+        cin.setContentInfo(MimeMediaType.OBIX + ":" + MimeMediaType.ENCOD_PLAIN);
+        RequestSender.createContentInstance(targetID, cin);
+    }
 
 }

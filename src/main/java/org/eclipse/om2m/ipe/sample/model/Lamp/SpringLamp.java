@@ -1,10 +1,10 @@
-package org.eclipse.om2m.ipe.sample.model;
+package org.eclipse.om2m.ipe.sample.model.Lamp;
 
 import jdk.nashorn.internal.parser.JSONParser;
 
 public class SpringLamp {
 
-    public final static String LOCATION = "SpringBoot";
+    public final static String LOCATION = "Home";
 
     public final static String TOGGLE = "toggle";
 
@@ -19,7 +19,7 @@ public class SpringLamp {
         this.state = initState;
     }
 
-    public boolean isState() {
+    public boolean getState() {
         return state;
     }
 

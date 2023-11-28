@@ -29,9 +29,8 @@ import org.eclipse.om2m.commons.obix.Str;
 import org.eclipse.om2m.commons.obix.Uri;
 import org.eclipse.om2m.commons.obix.io.ObixEncoder;
 import org.eclipse.om2m.ipe.sample.constants.Operations;
-import org.eclipse.om2m.ipe.sample.constants.SampleConstants;
 import org.eclipse.om2m.ipe.sample.model.Device;
-import org.eclipse.om2m.ipe.sample.model.SpringLamp;
+import org.eclipse.om2m.ipe.sample.model.Lamp.SpringLamp;
 
 public class ObixUtil {
 	

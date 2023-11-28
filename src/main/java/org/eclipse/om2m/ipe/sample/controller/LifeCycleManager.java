@@ -20,7 +20,6 @@
 package org.eclipse.om2m.ipe.sample.controller;
 
 import java.math.BigInteger;
-import java.util.Map;
 
 import org.eclipse.om2m.commons.constants.MimeMediaType;
 import org.eclipse.om2m.commons.constants.ResponseStatusCode;
@@ -30,8 +29,8 @@ import org.eclipse.om2m.commons.resource.ContentInstance;
 import org.eclipse.om2m.commons.resource.ResponsePrimitive;
 import org.eclipse.om2m.ipe.sample.RequestSender;
 import org.eclipse.om2m.ipe.sample.constants.SampleConstants;
-import org.eclipse.om2m.ipe.sample.model.LampModel;
-import org.eclipse.om2m.ipe.sample.model.SpringLamp;
+import org.eclipse.om2m.ipe.sample.model.Lamp.LampModel;
+import org.eclipse.om2m.ipe.sample.model.Lamp.SpringLamp;
 import org.eclipse.om2m.ipe.sample.util.ObixUtil;
 
 public class LifeCycleManager {
@@ -40,7 +39,7 @@ public class LifeCycleManager {
 	 *  1. AE 등록 --> AE를 생성할 때
 	 */
 	public static void start(){
-		String lampId = "LAMP_"+1;
+		String lampId = SpringLamp.TYPE+"_"+1;
 		SpringLamp lamp = new SpringLamp(lampId,false);
 		LampModel.setModel(lamp);
 
@@ -76,11 +75,13 @@ public class LifeCycleManager {
 		// CSE 최초 등록이면 아래 실행
 		if(response.getResponseStatusCode().equals(ResponseStatusCode.CREATED)) {
 			container = new Container();
-			container.setMaxNrOfInstances(BigInteger.valueOf(5));
+			container.setMaxNrOfInstances(BigInteger.valueOf(10));
 
 			container.setName(SampleConstants.DESC);
+			RequestSender.createContainer(response.getLocation(), container);
 
 			container.setName(SampleConstants.DATA);
+			RequestSender.createContainer(response.getLocation(), container);
 
 			String content;
 
