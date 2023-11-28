@@ -34,7 +34,7 @@ public class HttpProxy {
     {
     	// .. 
     }
-    public	static  JsonNode    connect(String DeviceName, String id, String state, String method)
+    public	static  JsonNode    connect(String DeviceName, String id, String state, String method, String json)
     {
     	this.id = id;
     	this.state = state;
@@ -53,7 +53,16 @@ public class HttpProxy {
             this.method = method;
             connection.setRequestMethod(this.method);
             if (this.method.equals("POST"))
-            	connection.setDoOutput(true);
+            {
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setDoOutput(true);
+                // POST 데이터 설정 (JSON 형태의 데이터 예시)
+                // String postData = "{\"key1\":\"value1\",\"key2\":\"value2\"}";
+                String postData = json;
+                try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
+                    wr.write(postData.getBytes("UTF-8"));
+                }
+            }
             int responseCode = connection.getResponseCode();
             log.debug("responseCode : {}", responseCode);
 
