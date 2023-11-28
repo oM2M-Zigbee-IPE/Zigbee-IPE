@@ -32,13 +32,14 @@ public class HttpProxy {
     
     public	Device(String DeviceName)
     {
-    	this.DeviceName = DeviceName;
+    	// .. 
     }
-    public	JsonNode	connect(String id, String state, String method)
+    public	static  JsonNode    connect(String DeviceName, String id, String state, String method)
     {
     	this.id = id;
     	this.state = state;
     	this.method = method;
+        this.DeviceName = DeviceName;
 
     	my_url = my_url + "/" + name;
     	if (this.id != "")
