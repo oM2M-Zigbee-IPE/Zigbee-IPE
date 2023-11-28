@@ -9,13 +9,11 @@ import org.eclipse.om2m.ipe.sample.model.Model;
 import org.eclipse.om2m.ipe.sample.util.ObixUtil;
 
 public class Controller {
-
     public static CseService CSE;
     protected static String AE_ID;
-
     public static void setDeviceState(String deviceId, boolean value){
         // Set the value in the "real world" model
-
+        Model.setDeviceState(deviceId, value);
         // Send the information to the CSE
         String targetID = SampleConstants.CSE_PREFIX + "/" + deviceId + "/" + SampleConstants.DATA;
         ContentInstance cin = new ContentInstance();
@@ -23,9 +21,22 @@ public class Controller {
         cin.setContentInfo(MimeMediaType.OBIX + ":" + MimeMediaType.ENCOD_PLAIN);
         RequestSender.createContentInstance(targetID, cin);
     }
+
     public static String getFormatedDeviceState(String deviceId){
         return ObixUtil.getStateRep(deviceId, getDeviceState(deviceId));
     }
+
+
+    /**
+     * 현재 장치의 상태를 반대로 바꿈
+     * @param deviceId
+     */
+    public static void toggleDevice(String deviceId){
+        boolean newState = !Model.getDeviceValue(deviceId);
+        setDeviceState(deviceId, newState);
+    }
+
+
     public static boolean getDeviceState(String deviceId){
         return Model.getDeviceValue(deviceId);
     }
@@ -34,8 +45,10 @@ public class Controller {
      * @param deviceId
      */
     public static void getDeviceInfo(String deviceId){
-        /**
+        /*
          * 온습도계가 1개임을 가정
+         *
+         * 필요 없을 듯. 일단 냅둠
          */
         try{
             String json = Model.deviceToJson(deviceId);

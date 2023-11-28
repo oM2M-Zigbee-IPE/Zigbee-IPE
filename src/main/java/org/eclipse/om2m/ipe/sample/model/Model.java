@@ -59,8 +59,8 @@ public class Model {
 			throw new BadRequestException("Unknown device id");
 		}
 	}
-	public static void setModel(Map<String, Device> deviceMapTmp) {
-		DEVICE = deviceMapTmp;
+	public static void setModel(Map<String, Device> deviceMap) {
+		DEVICE = deviceMap;
 	}
 
 	/**
