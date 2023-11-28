@@ -66,8 +66,8 @@ public class HttpProxy {
             bufferedReader.close();
 
             String body = stringBuffer.toString();
-            if (response[0] == '[' && response[response.length()-1] == ']')
-            	body = response.substring(1,response.length()-1);
+            if (body[0] == '[' && body[body.length()-1] == ']')
+            	body = body.substring(1,body.length()-1);
             log.debug("body : {}", body);
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(body);
