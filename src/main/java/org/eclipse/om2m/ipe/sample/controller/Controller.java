@@ -1,5 +1,6 @@
 package org.eclipse.om2m.ipe.sample.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.eclipse.om2m.commons.constants.MimeMediaType;
 import org.eclipse.om2m.commons.resource.ContentInstance;
 import org.eclipse.om2m.core.service.CseService;
@@ -7,6 +8,7 @@ import org.eclipse.om2m.ipe.sample.RequestSender;
 import org.eclipse.om2m.ipe.sample.constants.SampleConstants;
 import org.eclipse.om2m.ipe.sample.model.Lamp.LampModel;
 import org.eclipse.om2m.ipe.sample.model.Model;
+import org.eclipse.om2m.ipe.sample.model.proxy.HttpProxy;
 import org.eclipse.om2m.ipe.sample.util.ObixUtil;
 
 public class Controller {
@@ -75,6 +77,14 @@ public class Controller {
         cin.setContent(ObixUtil.getStateRep(lampId, value));
         cin.setContentInfo(MimeMediaType.OBIX + ":" + MimeMediaType.ENCOD_PLAIN);
         RequestSender.createContentInstance(targetID, cin);
+    }
+
+    /** Spring 데이터 받아오기 */
+    public static String getFormatedLampState(String lampId) throws  Exception{
+        HttpProxy request = new HttpProxy();
+
+        JsonNode node = request.connect("lamp","lamp1","state","GET",null);
+        return ObixUtil.getStateRep(lampId, node.get("status").booleanValue());
     }
 
 }

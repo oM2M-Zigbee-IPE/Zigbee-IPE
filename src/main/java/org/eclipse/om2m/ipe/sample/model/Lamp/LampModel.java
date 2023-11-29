@@ -13,7 +13,6 @@ public class LampModel {
         checkLampIdValue(lampId);
         LAMPS.setState(value);
 
-        notifyObservers(lampId, value);
     }
 
     /** om2m 요청으로 온 lampId가 null이거나 해당 lampId가 존재하지 않을 경우 예외처리 */

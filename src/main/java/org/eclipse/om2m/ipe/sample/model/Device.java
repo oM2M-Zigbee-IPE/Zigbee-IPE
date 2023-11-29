@@ -1,6 +1,6 @@
 package org.eclipse.om2m.ipe.sample.model;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class Device {
 

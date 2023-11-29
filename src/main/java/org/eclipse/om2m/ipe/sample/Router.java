@@ -27,23 +27,28 @@ public class Router implements InterworkingService {
                 lampid = request.getQueryStrings().get("lampid").get(0);
             }
             //LOGGER.info("Received request in Sample IPE: op=" + operation + " ; lampid=" + lampid);
-            switch(op){
-                case SET_ON:
-                    Controller.setLampState(lampid, true);
-                    response.setResponseStatusCode(ResponseStatusCode.OK);
-                    break;
-                case SET_OFF:
-                    Controller.setLampState(lampid, false);
-                    response.setResponseStatusCode(ResponseStatusCode.OK);
-                    break;
-                case GET_STATE_DIRECT:
-                    String content = Controller.getFormatedLampState(lampid);
-                    response.setContent(content);
-                    request.setReturnContentType(MimeMediaType.OBIX);
-                    response.setResponseStatusCode(ResponseStatusCode.OK);
-                    break;
-                default:
-                    throw new BadRequestException();
+            try{
+                switch(op){
+                    case SET_ON:
+                        Controller.setLampState(lampid, true);
+                        response.setResponseStatusCode(ResponseStatusCode.OK);
+                        break;
+                    case SET_OFF:
+                        Controller.setLampState(lampid, false);
+                        response.setResponseStatusCode(ResponseStatusCode.OK);
+                        break;
+                    case GET_STATE_DIRECT:
+                        String content = Controller.getFormatedLampState(lampid);
+                        response.setContent(content);
+                        request.setReturnContentType(MimeMediaType.OBIX);
+                        response.setResponseStatusCode(ResponseStatusCode.OK);
+                        break;
+                    default:
+                        throw new BadRequestException();
+                }
+            }
+            catch (Exception exception){
+                exception.printStackTrace();
             }
         }
         if(response.getResponseStatusCode() == null){
