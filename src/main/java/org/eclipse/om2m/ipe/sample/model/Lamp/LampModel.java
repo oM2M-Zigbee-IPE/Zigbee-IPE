@@ -26,4 +26,10 @@ public class LampModel {
         LAMPS = lamp;
     }
 
+    public static boolean getLampValue(String lampId) {
+        checkLampIdValue(lampId);
+        return LAMPS.getState();
+    }
+
+
 }

@@ -87,4 +87,8 @@ public class Controller {
         return ObixUtil.getStateRep(lampId, node.get("status").booleanValue());
     }
 
+    private static boolean getLampState(String lampId) {
+        return LampModel.getLampValue(lampId);
+    }
+
 }
