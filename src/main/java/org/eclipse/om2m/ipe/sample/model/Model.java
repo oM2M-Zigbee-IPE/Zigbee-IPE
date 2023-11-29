@@ -1,5 +1,6 @@
 package org.eclipse.om2m.ipe.sample.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.om2m.commons.exceptions.BadRequestException;
 
@@ -69,7 +70,7 @@ public class Model {
 	 * @return json
 	 * @throws Exception
 	 */
-	public static String deviceToJson(String deviceId) throws Exception {
+	public static String deviceToJson(String deviceId) throws JsonProcessingException {
 		Map<String, Device> map = new HashMap<String, Device>();
 		map.put("device", DEVICE.get(deviceId));
 		String json = new ObjectMapper().writeValueAsString(map);
