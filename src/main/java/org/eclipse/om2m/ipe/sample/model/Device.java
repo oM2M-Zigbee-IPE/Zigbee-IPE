@@ -19,8 +19,8 @@ public class Device {
     private boolean state = false;
 
     /** 온습도계의 온도, 습도 초기값 */
-    public final static Float TEMPERATURE = 0.0F;
-    public final static Float HUMIDITY = 0.0F;
+    public static String TEMPERATURE = "36.5";
+    public static String HUMIDITY = "60";
 
     public Device(String deviceId, boolean initState) {
         this.deviceId = deviceId;
@@ -63,7 +63,7 @@ public class Device {
      * 온도 반환
      * @return TEMPERATURE
      */
-    public static Float getTEMPERATURE() {
+    public static String getTEMPERATURE() {
         return TEMPERATURE;
     }
 
@@ -71,7 +71,7 @@ public class Device {
      * 습도 반환
      * @return HUMIDITY
      */
-    public static Float getHUMIDITY() {
+    public static String getHUMIDITY() {
         return HUMIDITY;
     }
 
