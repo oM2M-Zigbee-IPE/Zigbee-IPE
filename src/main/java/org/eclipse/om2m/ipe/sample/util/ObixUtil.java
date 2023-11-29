@@ -31,6 +31,7 @@ import org.eclipse.om2m.commons.obix.io.ObixEncoder;
 import org.eclipse.om2m.ipe.sample.constants.Operations;
 import org.eclipse.om2m.ipe.sample.model.Device;
 import org.eclipse.om2m.ipe.sample.model.Lamp.SpringLamp;
+import org.eclipse.om2m.ipe.sample.model.Model;
 
 public class ObixUtil {
 	
@@ -99,6 +100,8 @@ public class ObixUtil {
 		obj.add(new Str("location", Device.LOCATION));
 		obj.add(new Str("deviceId",Id));
 		obj.add(new Bool("state",value));
+		obj.add(new Str("temperature", Model.getDevice(Id).getTEMPERATURE()));
+		obj.add(new Str("humidity", Model.getDevice(Id).getHUMIDITY()));
 		return ObixEncoder.toString(obj);
 	}
 
