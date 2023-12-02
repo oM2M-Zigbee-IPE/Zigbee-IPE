@@ -42,12 +42,17 @@ public class LifeCycleManager {
 		String lampId = SpringLamp.TYPE+"_"+1;
 		SpringLamp lamp = new SpringLamp(lampId,false);
 		LampModel.setModel(lamp);
-
-		createLampResources(lampId,false,SampleConstants.POA);
+		createLampResources(lampId, false, SampleConstants.POA);
+		
+		String	deviceId = Device.TYPE + "_" + 1;
+		Device	device = new Device(deviceId);
+		String	TEMPERATURE = device.getTEMPERATURE();
+		String	HUMIDITY = device.getHUMIDITY();
+		createDeviceResources(deviceId, TEMPERATURE, HUMIDITY, SampleConstants.POA);
 	}
 
 	public static void stop(){
-
+		
 	}
 
 
@@ -100,5 +105,48 @@ public class LifeCycleManager {
 					SampleConstants.CSE_PREFIX + "/" + appId + "/" + SampleConstants.DATA, contentInstance);
 		}
 	}
+	
+	private static void createDeviceResources(String appId, String TEMPERATURE, String HUMIDITY, String poa) {
 
+		Container container = new Container();
+		container.getLabels().add("Device");
+		container.setMaxNrOfInstances(BigInteger.valueOf(0));
+
+		AE ae = new AE();
+		ae.setRequestReachability(true);
+		ae.getPointOfAccess().add(poa);
+		ae.setAppID(appId);
+		ae.setName(appId);
+
+		//CSE에 AE 등록되어 있는지 확인
+		ResponsePrimitive response = RequestSender.createAE(ae);
+
+		// CSE 최초 등록이면 아래 실행
+		if(response.getResponseStatusCode().equals(ResponseStatusCode.CREATED)) {
+			container = new Container();
+			container.setMaxNrOfInstances(BigInteger.valueOf(10));
+
+			container.setName(SampleConstants.DESC);
+			RequestSender.createContainer(response.getLocation(), container);
+
+			container.setName(SampleConstants.DATA);
+			RequestSender.createContainer(response.getLocation(), container);
+
+			String content;
+
+			content = ObixUtil.getDescriptorRep(SampleConstants.CSE_ID, appId, SampleConstants.DATA);
+
+			ContentInstance contentInstance = new ContentInstance();
+			contentInstance.setContent(content);
+			contentInstance.setContentInfo(MimeMediaType.OBIX);
+			RequestSender.createContentInstance(
+					SampleConstants.CSE_PREFIX + "/" + appId + "/" + SampleConstants.DESC, contentInstance);
+
+			// Create initial contentInstance on the STATE container resource
+			content = ObixUtil.getStateRepDev(appId, initValue); // Device;
+			contentInstance.setContent(content);
+			RequestSender.createContentInstance(
+					SampleConstants.CSE_PREFIX + "/" + appId + "/" + SampleConstants.DATA, contentInstance);
+		}
+	}
 }

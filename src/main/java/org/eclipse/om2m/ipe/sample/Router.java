@@ -19,23 +19,23 @@ public class Router implements InterworkingService {
         if(request.getQueryStrings().containsKey("op")){
             String operation = request.getQueryStrings().get("op").get(0);
             Operations op = Operations.getOperationFromString(operation);
-            String lampid= null;
-            if(request.getQueryStrings().containsKey("lampid")){
-                lampid = request.getQueryStrings().get("lampid").get(0);
+            String deviceId= null;
+            if(request.getQueryStrings().containsKey("deviceId")){
+                deviceId = request.getQueryStrings().get("deviceId").get(0);
             }
             //LOGGER.info("Received request in Sample IPE: op=" + operation + " ; lampid=" + lampid);
             try{
                 switch(op){
                     case SET_ON:
-                        Controller.setLampState(lampid, true);
+                        Controller.setLampState(deviceId, true);
                         response.setResponseStatusCode(ResponseStatusCode.OK);
                         break;
                     case SET_OFF:
-                        Controller.setLampState(lampid, false);
+                        Controller.setLampState(deviceId, false);
                         response.setResponseStatusCode(ResponseStatusCode.OK);
                         break;
                     case GET_STATE_DIRECT:
-                        String content = Controller.getFormatedLampState(lampid);
+                        String content = Controller.getFormatedDeviceState(deviceId);
                         response.setContent(content);
                         request.setReturnContentType(MimeMediaType.OBIX);
                         response.setResponseStatusCode(ResponseStatusCode.OK);

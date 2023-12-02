@@ -39,9 +39,7 @@ public class Activator implements BundleActivator {
 
         bundleContext.registerService(InterworkingService.class.getName(), new Router(), null);
         cseServiceTracker = new ServiceTracker<Object, Object>(bundleContext, CseService.class.getName(), null) {
-            public void removedService(ServiceReference<Object> reference, Object service) {
-
-            }
+            public void removedService(ServiceReference<Object> reference, Object service) {}
 
             public Object addingService(ServiceReference<Object> reference) {
 
