@@ -19,8 +19,8 @@ public class SensorModel {
 	 */
 	public static void setDeviceState(final String deviceId) {
 		checkSensorIdValue(deviceId);
-		DEVICE.setTemperature();
-		DEVICE.setHumidity();
+		DEVICE.setTemperature("36");
+		DEVICE.setHumidity("60");
 	}
 
 	public static void checkSensorIdValue(String lampId){
