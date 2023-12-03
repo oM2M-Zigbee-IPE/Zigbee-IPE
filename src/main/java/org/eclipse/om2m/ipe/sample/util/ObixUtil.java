@@ -29,37 +29,23 @@ import org.eclipse.om2m.commons.obix.Str;
 import org.eclipse.om2m.commons.obix.Uri;
 import org.eclipse.om2m.commons.obix.io.ObixEncoder;
 import org.eclipse.om2m.ipe.sample.constants.Operations;
-import org.eclipse.om2m.ipe.sample.model.Device;
-import org.eclipse.om2m.ipe.sample.model.Lamp.SpringLamp;
+import org.eclipse.om2m.ipe.sample.model.sensor.Sensor;
+import org.eclipse.om2m.ipe.sample.model.lamp.SpringLamp;
 
 public class ObixUtil {
-	
-	/**
-	 * Returns an obix XML representation
-	 * @param cseId - SclBase id
-	 * @param appId - Application Id
-	 * @param stateCont - the STATE container id
-	 * @return Obix XML representation
-	 */
-	public static String getDescriptorRep(String cseId, String appId, String stateCont) {
+
+	public static String getLampDescriptorRep(String cseId, String appId, String stateCont) {
 		String prefix = cseId+"/"+ Constants.CSE_NAME + "/" + appId;
 		// oBIX
 		Obj obj = new Obj();
 		obj.add(new Str("type", SpringLamp.TYPE));
 		obj.add(new Str("location", SpringLamp.LOCATION));
 		obj.add(new Str("appId",appId));
-		// OP GetState from SCL DataBase
-		Op opState = new Op();
-		opState.setName("getState");
-		opState.setHref(new Uri(prefix  +"/"+stateCont+"/"+ ShortName.LATEST));
-		opState.setIs(new Contract("retrieve"));
-		opState.setIn(new Contract("obix:Nil"));
-		opState.setOut(new Contract("obix:Nil"));
-		obj.add(opState);
 
-		// OP GetState from SCL IPU
+
+		// 현재 Lamp 상태 확인 URI 등록
 		Op opStateDirect = new Op();
-		opStateDirect.setName("getState(Direct)");
+		opStateDirect.setName("getLamp(Direct)");
 		opStateDirect.setHref(new Uri(prefix + "?op="+ Operations.GET_STATE_DIRECT+"&lampid=" + appId));
 		opStateDirect.setIs(new Contract("execute"));
 		opStateDirect.setIn(new Contract("obix:Nil"));
@@ -74,6 +60,7 @@ public class ObixUtil {
 		opON.setIn(new Contract("obix:Nil"));
 		opON.setOut(new Contract("obix:Nil"));
 		obj.add(opON);
+
 		// OP SwitchOFF
 		Op opOFF = new Op();
 		opOFF.setName("switchOFF");
@@ -86,30 +73,56 @@ public class ObixUtil {
 		return ObixEncoder.toString(obj);
 	}
 
-	/**
-	 * Returns an obix XML representation describing the current state.
-	 * @param Id - Application Id
-	 * @param value - current state
-	 * @return Obix XML representation
-	 */
+	public static String getSensorDescriptorRep(String cseId, String appId, String stateCont) {
+		String prefix = cseId+"/"+ Constants.CSE_NAME + "/" + appId;
+		// oBIX
+		Obj obj = new Obj();
+		obj.add(new Str("type", SpringLamp.TYPE));
+		obj.add(new Str("location", SpringLamp.LOCATION));
+		obj.add(new Str("appId",appId));
+
+		// 가장 최근 센서 데이터 가져오는 uri 생성
+		Op opStateDirect = new Op();
+		opStateDirect.setName("getSensor(local)");
+		opStateDirect.setHref(new Uri(prefix + "?op="+ Operations.GET_RECENT_STATE+"&lampid=" + appId));
+		opStateDirect.setIs(new Contract("execute"));
+		opStateDirect.setIn(new Contract("obix:Nil"));
+		opStateDirect.setOut(new Contract("obix:Nil"));
+		obj.add(opStateDirect);
+
+		// Conbee에서 데이터 받아오는 uri 생성
+		Op opON = new Op();
+		opON.setName("getSensor(remote)");
+		opON.setHref(new Uri(prefix + "?op="+ Operations.GET_SENSOR_STATE +"&lampid=" + appId));
+		opON.setIs(new Contract("execute"));
+		opON.setIn(new Contract("obix:Nil"));
+		opON.setOut(new Contract("obix:Nil"));
+		obj.add(opON);
+
+
+		return ObixEncoder.toString(obj);
+	}
+
+
 	public static String getStateRep(String Id, boolean value) {
 		// oBIX
 		Obj obj = new Obj();
-		obj.add(new Str("type", Device.TYPE));
-		obj.add(new Str("location", Device.LOCATION));
+		obj.add(new Str("type", Sensor.TYPE));
+		obj.add(new Str("location", Sensor.LOCATION));
 		obj.add(new Str("deviceId",Id));
 		obj.add(new Bool("state",value));
 		return ObixEncoder.toString(obj);
 	}
-	public static String getStateRepDev(String Id, boolean value) {
+
+	/** oM2M에게 최근 센서 정보 전달 */
+	public static String getSensorState(String Id) {
 		// oBIX
 		Obj obj = new Obj();
-		obj.add(new Str("type", Device.TYPE));
-		obj.add(new Str("location", Device.LOCATION));
+		obj.add(new Str("type", Sensor.TYPE));
+		obj.add(new Str("location", Sensor.LOCATION));
 		obj.add(new Str("deviceId",Id));
-		obj.add(new Bool("state",value));
-		obj.add(new Str("temperature", Device.getTEMPERATURE()));
-		obj.add(new Str("humidity", Device.getHUMIDITY()));
+		obj.add(new Str("temperature", Sensor.getTEMPERATURE()));
+		obj.add(new Str("humidity", Sensor.getHUMIDITY()));
 		return ObixEncoder.toString(obj);
 	}
 }

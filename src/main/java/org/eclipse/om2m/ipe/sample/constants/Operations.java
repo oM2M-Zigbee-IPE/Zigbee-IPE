@@ -26,10 +26,11 @@ import org.eclipse.om2m.commons.exceptions.BadRequestException;
  */
 public enum Operations {
 	
-	GET_STATE("getState"),
+	GET_RECENT_STATE("getRecentState"),
 	SET_ON("setOn"),
 	SET_OFF("setOff"),
-	GET_STATE_DIRECT("getStateDirect");
+	GET_STATE_DIRECT("getStateDirect"),
+	GET_SENSOR_STATE("getSensorState");
 
 	private final String value;
 	

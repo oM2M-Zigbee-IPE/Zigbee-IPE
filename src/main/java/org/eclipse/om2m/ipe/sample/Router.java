@@ -23,7 +23,9 @@ public class Router implements InterworkingService {
             if(request.getQueryStrings().containsKey("deviceId")){
                 deviceId = request.getQueryStrings().get("deviceId").get(0);
             }
-            //LOGGER.info("Received request in Sample IPE: op=" + operation + " ; lampid=" + lampid);
+            else if(request.getQueryStrings().containsKey("lampId")){
+                deviceId = request.getQueryStrings().get("lampId").get(0);
+            }
             try{
                 switch(op){
                     case SET_ON:
@@ -35,8 +37,18 @@ public class Router implements InterworkingService {
                         response.setResponseStatusCode(ResponseStatusCode.OK);
                         break;
                     case GET_STATE_DIRECT:
-                        String content = Controller.getFormatedDeviceState(deviceId);
-                        response.setContent(content);
+                        String content1 = Controller.getFormatedLampState(deviceId);
+                        response.setContent(content1);
+                        request.setReturnContentType(MimeMediaType.OBIX);
+                        response.setResponseStatusCode(ResponseStatusCode.OK);
+                        break;
+                    case GET_SENSOR_STATE:
+                        Controller.setSensorState(deviceId);
+                        response.setResponseStatusCode(ResponseStatusCode.OK);
+                        break;
+                    case GET_RECENT_STATE:
+                        String content2 = Controller.getFormatedDeviceState(deviceId);
+                        response.setContent(content2);
                         request.setReturnContentType(MimeMediaType.OBIX);
                         response.setResponseStatusCode(ResponseStatusCode.OK);
                         break;
@@ -53,49 +65,6 @@ public class Router implements InterworkingService {
         }
         return response;
     }
-    //    /**
-//     * 위에 있는 deExecute 코드는 램프를 위한 것
-//     * 프록시하게 짜야됨
-//     * 추후에 회의 후 수정 예정
-//     * @param request
-//     * @return
-//     */
-//    @Override
-//    public ResponsePrimitive doExecute(RequestPrimitive request) {
-//        ResponsePrimitive response = new ResponsePrimitive(request);
-//        if(request.getQueryStrings().containsKey("op")){
-//            String operation = request.getQueryStrings().get("op").get(0);
-//            Operations op = Operations.getOperationFromString(operation);
-//            String deviceId= null;
-//            if(request.getQueryStrings().containsKey("deviceId")){
-//                deviceId = request.getQueryStrings().get("deviceId").get(0);
-//            }
-//            //LOGGER.info("Received request in Sample IPE: op=" + operation + " ; lampid=" + lampid);
-//            switch(op){
-//                case SET_ON:
-//                    Controller.setLampState(deviceId, true);
-//                    response.setResponseStatusCode(ResponseStatusCode.OK);
-//                    break;
-//                case SET_OFF:
-//                    Controller.setLampState(deviceId, false);
-//                    response.setResponseStatusCode(ResponseStatusCode.OK);
-//                    break;
-//                case GET_STATE_DIRECT:
-//                    String content = Controller.getFormatedDeviceState(deviceId);
-//                    response.setContent(content);
-//                    request.setReturnContentType(MimeMediaType.OBIX);
-//                    response.setResponseStatusCode(ResponseStatusCode.OK);
-//                    break;
-//                default:
-//                    throw new BadRequestException();
-//            }
-//        }
-//        if(response.getResponseStatusCode() == null){
-//            response.setResponseStatusCode(ResponseStatusCode.BAD_REQUEST);
-//        }
-//        return response;
-//    }
-
     @Override
     public String getAPOCPath() {
 

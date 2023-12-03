@@ -29,8 +29,10 @@ import org.eclipse.om2m.commons.resource.ContentInstance;
 import org.eclipse.om2m.commons.resource.ResponsePrimitive;
 import org.eclipse.om2m.ipe.sample.RequestSender;
 import org.eclipse.om2m.ipe.sample.constants.SampleConstants;
-import org.eclipse.om2m.ipe.sample.model.Lamp.LampModel;
-import org.eclipse.om2m.ipe.sample.model.Lamp.SpringLamp;
+import org.eclipse.om2m.ipe.sample.model.sensor.Sensor;
+import org.eclipse.om2m.ipe.sample.model.lamp.LampModel;
+import org.eclipse.om2m.ipe.sample.model.lamp.SpringLamp;
+import org.eclipse.om2m.ipe.sample.model.sensor.SensorModel;
 import org.eclipse.om2m.ipe.sample.util.ObixUtil;
 
 public class LifeCycleManager {
@@ -44,11 +46,10 @@ public class LifeCycleManager {
 		LampModel.setModel(lamp);
 		createLampResources(lampId, false, SampleConstants.POA);
 		
-		String	deviceId = Device.TYPE + "_" + 1;
-		Device	device = new Device(deviceId);
-		String	TEMPERATURE = device.getTEMPERATURE();
-		String	HUMIDITY = device.getHUMIDITY();
-		createDeviceResources(deviceId, TEMPERATURE, HUMIDITY, SampleConstants.POA);
+		String	deviceId = Sensor.TYPE + "_" + 1;
+		Sensor device = new Sensor(deviceId);
+		SensorModel.setSensor(device);
+		createDeviceResources(deviceId, SampleConstants.POA);
 	}
 
 	public static void stop(){
@@ -90,7 +91,7 @@ public class LifeCycleManager {
 
 			String content;
 
-			content = ObixUtil.getDescriptorRep(SampleConstants.CSE_ID, appId, SampleConstants.DATA);
+			content = ObixUtil.getLampDescriptorRep(SampleConstants.CSE_ID, appId, SampleConstants.DATA);
 
 			ContentInstance contentInstance = new ContentInstance();
 			contentInstance.setContent(content);
@@ -106,10 +107,10 @@ public class LifeCycleManager {
 		}
 	}
 	
-	private static void createDeviceResources(String appId, String TEMPERATURE, String HUMIDITY, String poa) {
+	private static void createDeviceResources(String appId,  String poa) {
 
 		Container container = new Container();
-		container.getLabels().add("Device");
+		container.getLabels().add("sensor");
 		container.setMaxNrOfInstances(BigInteger.valueOf(0));
 
 		AE ae = new AE();
@@ -134,7 +135,7 @@ public class LifeCycleManager {
 
 			String content;
 
-			content = ObixUtil.getDescriptorRep(SampleConstants.CSE_ID, appId, SampleConstants.DATA);
+			content = ObixUtil.getSensorDescriptorRep(SampleConstants.CSE_ID, appId, SampleConstants.DATA);
 
 			ContentInstance contentInstance = new ContentInstance();
 			contentInstance.setContent(content);
@@ -142,11 +143,8 @@ public class LifeCycleManager {
 			RequestSender.createContentInstance(
 					SampleConstants.CSE_PREFIX + "/" + appId + "/" + SampleConstants.DESC, contentInstance);
 
-			// Create initial contentInstance on the STATE container resource
-			content = ObixUtil.getStateRepDev(appId, initValue); // Device;
-			contentInstance.setContent(content);
-			RequestSender.createContentInstance(
-					SampleConstants.CSE_PREFIX + "/" + appId + "/" + SampleConstants.DATA, contentInstance);
+
+
 		}
 	}
 }

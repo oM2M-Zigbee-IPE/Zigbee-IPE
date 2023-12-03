@@ -1,8 +1,8 @@
-package org.eclipse.om2m.ipe.sample.model;
+package org.eclipse.om2m.ipe.sample.model.sensor;
 
 
 
-public class Device {
+public class Sensor {
 
     /** Device ID */
     private String deviceId;
@@ -10,38 +10,20 @@ public class Device {
     /** Default Device location */
     public final static String LOCATION = "Home";
     /** Default Device type */
-    public final static String TYPE = "DEVICE";
+    public final static String TYPE = "SENSOR";
 
-    /** Device state -> 껐다 키는 용도
-     * 그런데 센서인데 이게 필요할까?
-     * 일단 넣음
-     */
-    private boolean state = false;
 
     /** 온습도계의 온도, 습도 초기값 */
-    public static String TEMPERATURE = "36.5";
-    public static String HUMIDITY = "60";
+    public static String temperature = "36.5" ;
+    public static String humidity = "60";
 
-    public Device(String deviceId, boolean initState) {
+
+
+    public Sensor(String deviceId) {
         this.deviceId = deviceId;
-        this.state = initState;
     }
 
-    /**
-     * 전원 상태 확인
-     * @return state
-     */
-    public boolean getState() {
-        return state;
-    }
 
-    /**
-     * 전원 상태 설정
-     * @param state
-     */
-    public void setState(boolean state) {
-        this.state = state;
-    }
 
     /**
      * 장치 ID 반환
@@ -64,7 +46,7 @@ public class Device {
      * @return TEMPERATURE
      */
     public static String getTEMPERATURE() {
-        return TEMPERATURE;
+        return temperature;
     }
 
     /**
@@ -72,7 +54,15 @@ public class Device {
      * @return HUMIDITY
      */
     public static String getHUMIDITY() {
-        return HUMIDITY;
+        return humidity;
+    }
+
+    public void setTemperature(String temperature) {
+        Sensor.temperature = temperature;
+    }
+
+    public void setHumidity(String humidity) {
+        Sensor.humidity = humidity;
     }
 
 }

@@ -1,6 +1,4 @@
-package org.eclipse.om2m.ipe.sample.model.Lamp;
-
-import jdk.nashorn.internal.parser.JSONParser;
+package org.eclipse.om2m.ipe.sample.model.lamp;
 
 public class SpringLamp {
 
