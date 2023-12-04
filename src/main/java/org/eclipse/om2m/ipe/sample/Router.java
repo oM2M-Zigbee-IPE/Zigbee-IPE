@@ -23,8 +23,8 @@ public class Router implements InterworkingService {
             if(request.getQueryStrings().containsKey("deviceId")){
                 deviceId = request.getQueryStrings().get("deviceId").get(0);
             }
-            else if(request.getQueryStrings().containsKey("lampId")){
-                deviceId = request.getQueryStrings().get("lampId").get(0);
+            else if(request.getQueryStrings().containsKey("lampid")){
+                deviceId = request.getQueryStrings().get("lampid").get(0);
             }
             try{
                 switch(op){

@@ -25,7 +25,8 @@ public class SensorModel {
 
 	public static void checkSensorIdValue(String lampId){
 		if(lampId == null || !DEVICE.getDeviceId().equals(lampId)){
-			throw new BadRequestException("Unknow lamp id");
+			
+			throw new BadRequestException(lampId+" error");
 		}
 	}
 

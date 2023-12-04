@@ -15,14 +15,15 @@ public class Controller {
     public static CseService CSE;
     protected static String AE_ID;
 
-    private static HttpProxy proxy = new HttpProxy();
+    
 
     /** contentInstance 만들어서 oM2M에 전달 */
     public static void setSensorState(String deviceId)throws Exception{
+        HttpProxy proxy = new HttpProxy();
         // 1. 데이터 받아오기
         JsonNode response = proxy.connect("sensors",null,null,"GET",null);
-        Double rowTemp = response.get(1).get("state").get("temperature").doubleValue() / 100;
-        Double rowHum = response.get(2).get("state").get("humidity").doubleValue() / 100;
+        Double rowTemp = response.get("2").get("state").get("temperature").doubleValue()/ 100;
+        Double rowHum = response.get("3").get("state").get("humidity").doubleValue() / 100;
 
         // 2. SensorMdoel에 저장하기
         SensorModel.setDeviceState(deviceId,String.valueOf(rowTemp),String.valueOf(rowHum));
@@ -58,7 +59,7 @@ public class Controller {
 
     /** Spring 데이터 받아오기 */
     public static String getFormatedLampState(String lampId) throws  Exception{
-        //HttpProxy request = new HttpProxy();
+        HttpProxy proxy = new HttpProxy();
 
         JsonNode node = proxy.connect("lamp","lamp1","state","GET",null);
         return ObixUtil.getStateRep(lampId, node.get("status").booleanValue());

@@ -84,7 +84,7 @@ public class ObixUtil {
 		// 가장 최근 센서 데이터 가져오는 uri 생성
 		Op opStateDirect = new Op();
 		opStateDirect.setName("getSensor(local)");
-		opStateDirect.setHref(new Uri(prefix + "?op="+ Operations.GET_RECENT_STATE+"&lampid=" + appId));
+		opStateDirect.setHref(new Uri(prefix + "?op="+ Operations.GET_RECENT_STATE+"&deviceId=" + appId));
 		opStateDirect.setIs(new Contract("execute"));
 		opStateDirect.setIn(new Contract("obix:Nil"));
 		opStateDirect.setOut(new Contract("obix:Nil"));
@@ -93,7 +93,7 @@ public class ObixUtil {
 		// Conbee에서 데이터 받아오는 uri 생성
 		Op opON = new Op();
 		opON.setName("getSensor(remote)");
-		opON.setHref(new Uri(prefix + "?op="+ Operations.GET_SENSOR_STATE +"&lampid=" + appId));
+		opON.setHref(new Uri(prefix + "?op="+ Operations.GET_SENSOR_STATE +"&deviceId=" + appId));
 		opON.setIs(new Contract("execute"));
 		opON.setIn(new Contract("obix:Nil"));
 		opON.setOut(new Contract("obix:Nil"));
