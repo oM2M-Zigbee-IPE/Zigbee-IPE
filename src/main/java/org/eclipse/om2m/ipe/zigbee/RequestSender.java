@@ -17,7 +17,7 @@
  *
  * New contributors :
  *******************************************************************************/
-package org.eclipse.om2m.ipe.sample;
+package org.eclipse.om2m.ipe.zigbee;
 
 import java.math.BigInteger;
 
@@ -31,7 +31,7 @@ import org.eclipse.om2m.commons.resource.ContentInstance;
 import org.eclipse.om2m.commons.resource.RequestPrimitive;
 import org.eclipse.om2m.commons.resource.Resource;
 import org.eclipse.om2m.commons.resource.ResponsePrimitive;
-import org.eclipse.om2m.ipe.sample.controller.Controller;
+import org.eclipse.om2m.ipe.zigbee.controller.Controller;
 
 public class RequestSender {
 	

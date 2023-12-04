@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: IPE Sample
-Bundle-SymbolicName: org.eclipse.om2m.ipe.sample
+Bundle-Name: IPE Zigbee
+Bundle-SymbolicName: org.eclipse.om2m.ipe.zigbee
 Bundle-Version: 1.1.0.qualifier
-Bundle-Activator: org.eclipse.om2m.ipe.sample.Activator
+Bundle-Activator: org.eclipse.om2m.ipe.zigbee.Activator
 Require-Bundle: org.eclipse.om2m.commons
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: org.apache.commons.logging,

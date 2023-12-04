@@ -17,10 +17,9 @@
  *
  * New contributors :
  *******************************************************************************/
-package org.eclipse.om2m.ipe.sample.util;
+package org.eclipse.om2m.ipe.zigbee.util;
 
 import org.eclipse.om2m.commons.constants.Constants;
-import org.eclipse.om2m.commons.constants.ShortName;
 import org.eclipse.om2m.commons.obix.Bool;
 import org.eclipse.om2m.commons.obix.Contract;
 import org.eclipse.om2m.commons.obix.Obj;
@@ -28,9 +27,9 @@ import org.eclipse.om2m.commons.obix.Op;
 import org.eclipse.om2m.commons.obix.Str;
 import org.eclipse.om2m.commons.obix.Uri;
 import org.eclipse.om2m.commons.obix.io.ObixEncoder;
-import org.eclipse.om2m.ipe.sample.constants.Operations;
-import org.eclipse.om2m.ipe.sample.model.sensor.Sensor;
-import org.eclipse.om2m.ipe.sample.model.lamp.SpringLamp;
+import org.eclipse.om2m.ipe.zigbee.constants.Operations;
+import org.eclipse.om2m.ipe.zigbee.model.sensor.Sensor;
+import org.eclipse.om2m.ipe.zigbee.model.lamp.SpringLamp;
 
 public class ObixUtil {
 

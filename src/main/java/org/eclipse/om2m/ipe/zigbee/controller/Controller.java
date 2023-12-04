@@ -1,15 +1,15 @@
-package org.eclipse.om2m.ipe.sample.controller;
+package org.eclipse.om2m.ipe.zigbee.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.eclipse.om2m.commons.constants.MimeMediaType;
 import org.eclipse.om2m.commons.resource.ContentInstance;
 import org.eclipse.om2m.core.service.CseService;
-import org.eclipse.om2m.ipe.sample.RequestSender;
-import org.eclipse.om2m.ipe.sample.constants.SampleConstants;
-import org.eclipse.om2m.ipe.sample.model.lamp.LampModel;
-import org.eclipse.om2m.ipe.sample.model.sensor.SensorModel;
-import org.eclipse.om2m.ipe.sample.model.proxy.HttpProxy;
-import org.eclipse.om2m.ipe.sample.util.ObixUtil;
+import org.eclipse.om2m.ipe.zigbee.RequestSender;
+import org.eclipse.om2m.ipe.zigbee.constants.SampleConstants;
+import org.eclipse.om2m.ipe.zigbee.model.lamp.LampModel;
+import org.eclipse.om2m.ipe.zigbee.model.sensor.SensorModel;
+import org.eclipse.om2m.ipe.zigbee.model.proxy.HttpProxy;
+import org.eclipse.om2m.ipe.zigbee.util.ObixUtil;
 
 public class Controller {
     public static CseService CSE;

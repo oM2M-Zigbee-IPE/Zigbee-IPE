@@ -17,12 +17,12 @@
  *
  * New contributors :
  *******************************************************************************/
-package org.eclipse.om2m.ipe.sample;
+package org.eclipse.om2m.ipe.zigbee;
 
 import org.eclipse.om2m.core.service.CseService;
 import org.eclipse.om2m.interworking.service.InterworkingService;
-import org.eclipse.om2m.ipe.sample.controller.Controller;
-import org.eclipse.om2m.ipe.sample.controller.LifeCycleManager;
+import org.eclipse.om2m.ipe.zigbee.controller.Controller;
+import org.eclipse.om2m.ipe.zigbee.controller.LifeCycleManager;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;

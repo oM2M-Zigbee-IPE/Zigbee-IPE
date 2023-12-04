@@ -17,7 +17,7 @@
  *
  * New contributors :
  *******************************************************************************/
-package org.eclipse.om2m.ipe.sample.controller;
+package org.eclipse.om2m.ipe.zigbee.controller;
 
 import java.math.BigInteger;
 
@@ -27,13 +27,13 @@ import org.eclipse.om2m.commons.resource.AE;
 import org.eclipse.om2m.commons.resource.Container;
 import org.eclipse.om2m.commons.resource.ContentInstance;
 import org.eclipse.om2m.commons.resource.ResponsePrimitive;
-import org.eclipse.om2m.ipe.sample.RequestSender;
-import org.eclipse.om2m.ipe.sample.constants.SampleConstants;
-import org.eclipse.om2m.ipe.sample.model.sensor.Sensor;
-import org.eclipse.om2m.ipe.sample.model.lamp.LampModel;
-import org.eclipse.om2m.ipe.sample.model.lamp.SpringLamp;
-import org.eclipse.om2m.ipe.sample.model.sensor.SensorModel;
-import org.eclipse.om2m.ipe.sample.util.ObixUtil;
+import org.eclipse.om2m.ipe.zigbee.RequestSender;
+import org.eclipse.om2m.ipe.zigbee.constants.SampleConstants;
+import org.eclipse.om2m.ipe.zigbee.model.sensor.Sensor;
+import org.eclipse.om2m.ipe.zigbee.model.lamp.LampModel;
+import org.eclipse.om2m.ipe.zigbee.model.lamp.SpringLamp;
+import org.eclipse.om2m.ipe.zigbee.model.sensor.SensorModel;
+import org.eclipse.om2m.ipe.zigbee.util.ObixUtil;
 
 public class LifeCycleManager {
 

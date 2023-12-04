@@ -17,7 +17,7 @@
  *
  * New contributors :
  *******************************************************************************/
-package org.eclipse.om2m.ipe.sample.constants;
+package org.eclipse.om2m.ipe.zigbee.constants;
 
 import org.eclipse.om2m.commons.constants.Constants;
 

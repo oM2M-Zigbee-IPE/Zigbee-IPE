@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="org.eclipse.om2m.ipe.sample" />
+        <module name="org.eclipse.om2m.ipe.zigbee" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="org.eclipse.om2m.ipe.sample" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>

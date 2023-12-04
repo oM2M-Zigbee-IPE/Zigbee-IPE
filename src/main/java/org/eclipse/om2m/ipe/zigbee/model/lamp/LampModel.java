@@ -1,4 +1,4 @@
-package org.eclipse.om2m.ipe.sample.model.lamp;
+package org.eclipse.om2m.ipe.zigbee.model.lamp;
 
 import org.eclipse.om2m.commons.exceptions.BadRequestException;
 

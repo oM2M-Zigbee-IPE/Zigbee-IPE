@@ -1,4 +1,4 @@
-package org.eclipse.om2m.ipe.sample;
+package org.eclipse.om2m.ipe.zigbee;
 
 import org.eclipse.om2m.commons.constants.MimeMediaType;
 import org.eclipse.om2m.commons.constants.ResponseStatusCode;
@@ -6,9 +6,9 @@ import org.eclipse.om2m.commons.exceptions.BadRequestException;
 import org.eclipse.om2m.commons.resource.RequestPrimitive;
 import org.eclipse.om2m.commons.resource.ResponsePrimitive;
 import org.eclipse.om2m.interworking.service.InterworkingService;
-import org.eclipse.om2m.ipe.sample.constants.Operations;
-import org.eclipse.om2m.ipe.sample.constants.SampleConstants;
-import org.eclipse.om2m.ipe.sample.controller.Controller;
+import org.eclipse.om2m.ipe.zigbee.constants.Operations;
+import org.eclipse.om2m.ipe.zigbee.constants.SampleConstants;
+import org.eclipse.om2m.ipe.zigbee.controller.Controller;
 
 public class Router implements InterworkingService {
 
