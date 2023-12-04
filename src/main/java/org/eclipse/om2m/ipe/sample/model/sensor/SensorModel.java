@@ -17,10 +17,10 @@ public class SensorModel {
 	 * Sets the device state.
 	 * @param deviceId - Application ID
 	 */
-	public static void setDeviceState(final String deviceId) {
+	public static void setDeviceState(final String deviceId,String temperature, String humidity) {
 		checkSensorIdValue(deviceId);
-		DEVICE.setTemperature("36");
-		DEVICE.setHumidity("60");
+		DEVICE.setTemperature(temperature);
+		DEVICE.setHumidity(humidity);
 	}
 
 	public static void checkSensorIdValue(String lampId){

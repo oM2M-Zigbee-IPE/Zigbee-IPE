@@ -15,14 +15,19 @@ public class Controller {
     public static CseService CSE;
     protected static String AE_ID;
 
+    private static HttpProxy proxy = new HttpProxy();
+
     /** contentInstance 만들어서 oM2M에 전달 */
-    public static void setSensorState(String deviceId){
-        /** 1. 데이터 Conbee에서 받아오기
-         *  2. SensorMdoel에 저장하기
-         *  3. ContentInstance 만들고 RequestSender로 IN-CSE에 요청보내기
-         * */
-        SensorModel.setDeviceState(deviceId);
-        // Send the information to the CSE
+    public static void setSensorState(String deviceId)throws Exception{
+        // 1. 데이터 받아오기
+        JsonNode response = proxy.connect("sensors",null,null,"GET",null);
+        Double rowTemp = response.get(1).get("state").get("temperature").doubleValue() / 100;
+        Double rowHum = response.get(2).get("state").get("humidity").doubleValue() / 100;
+
+        // 2. SensorMdoel에 저장하기
+        SensorModel.setDeviceState(deviceId,String.valueOf(rowTemp),String.valueOf(rowHum));
+
+        // 3. ContentInstance 만들고 RequestSender로 IN-CSE에 요청보내기
         String targetID = SampleConstants.CSE_PREFIX + "/" + deviceId + "/" + SampleConstants.DATA;
         ContentInstance cin = new ContentInstance();
         cin.setContent(ObixUtil.getSensorState(deviceId)); // 받아온 정보 이용해야 함
@@ -53,9 +58,9 @@ public class Controller {
 
     /** Spring 데이터 받아오기 */
     public static String getFormatedLampState(String lampId) throws  Exception{
-        HttpProxy request = new HttpProxy();
+        //HttpProxy request = new HttpProxy();
 
-        JsonNode node = request.connect("lamp","lamp1","state","GET",null);
+        JsonNode node = proxy.connect("lamp","lamp1","state","GET",null);
         return ObixUtil.getStateRep(lampId, node.get("status").booleanValue());
     }
 

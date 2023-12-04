@@ -14,7 +14,7 @@ import java.net.URL;
 
 // HttpProxy
 // Object에서 get/post 요청을 하면 HttpProxy.connect()를 호출하여 json을 받는다.
-
+//http://172.19.16.43/api/D9DF3B2018/sensors
 public class HttpProxy {
 
 
@@ -22,7 +22,7 @@ public class HttpProxy {
     
     private String ADDRESS = ipeConfig.getConfig("address");
     
-    private String my_url = "http://" + ADDRESS + ":8080/api/" + API_KEY;
+    private String my_url = "http://" + ADDRESS + "/api" + API_KEY;
     
     private String	DeviceName = null;
     
@@ -39,9 +39,9 @@ public class HttpProxy {
         this.DeviceName = DeviceName;
 
         my_url = my_url + "/" + DeviceName;
-        if (this.id != "")
+        if (this.id != null)
             my_url = my_url + "/" + id;
-        if (this.state != "")
+        if (this.state != null)
             my_url = my_url + "/" + state;
 
         URL url = new URL(my_url);
